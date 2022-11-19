@@ -12,7 +12,11 @@
     "stopall": "lsof -t -i:2000 -i:6001 -i:9080 -i:8086 -i:9099 | xargs kill -9"
   },
   "dependencies": {
+    "@chakra-ui/react": "^2.4.1",
+    "@emotion/react": "^11.10.5",
+    "@emotion/styled": "^11.10.5",
     "firebase": "^9.14.0",
+    "framer-motion": "^6.5.1",
     "next": "13.0.4",
     "npm-run-all": "^4.1.5",
     "react": "18.2.0",
