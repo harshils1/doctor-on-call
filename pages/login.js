@@ -4,17 +4,94 @@ import {
   FormControl,
   FormLabel,
   Input,
-  Checkbox,
   Stack,
   Link,
   Button,
   Heading,
   Text,
   useColorModeValue,
+  useToast,
 } from '@chakra-ui/react'
 import NextLink from 'next/link'
+import { useRouter } from 'next/router'
+import { signInWithEmailAndPassword, onAuthStateChanged } from 'firebase/auth'
+import { auth } from '../firebase-client/config'
+import { useState, useEffect } from 'react'
 
 const Login = () => {
+  const router = useRouter()
+  const toast = useToast()
+
+  const [formState, setFormState] = useState({
+    email: '',
+    password: '',
+  })
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        router.push('/')
+      } else {
+        unsubscribe()
+      }
+    })
+
+    return () => unsubscribe()
+  }, [])
+
+  const handleFormChange = (e) => {
+    e.preventDefault()
+
+    setFormState({
+      ...formState,
+      [e.target.name]: e.target.value,
+    })
+  }
+
+  const handleLogin = async (e) => {
+    e.preventDefault()
+
+    const isValid = Object.values(formState).every(
+      (x) => x !== null && x !== '',
+    )
+
+    if (!isValid) {
+      toast({
+        title: 'Invalid input',
+        description: 'Ensure all the fields are filled.',
+        status: 'error',
+        duration: 3000,
+        isClosable: true,
+      })
+      return
+    }
+
+    try {
+      await signInWithEmailAndPassword(
+        auth,
+        formState['email'],
+        formState['password'],
+      )
+
+      toast({
+        title: 'Signed in successfully!',
+        status: 'success',
+        duration: 3000,
+        isClosable: true,
+      })
+
+      router.push('/')
+    } catch (error) {
+      toast({
+        title: 'An error occured',
+        description: error.message,
+        status: 'error',
+        duration: 3000,
+        isClosable: true,
+      })
+    }
+  }
+
   return (
     <Flex
       minH={'100vh'}
@@ -35,11 +112,15 @@ const Login = () => {
           <Stack spacing={4}>
             <FormControl id="email">
               <FormLabel>Email address</FormLabel>
-              <Input type="email" />
+              <Input name="email" onChange={handleFormChange} type="email" />
             </FormControl>
             <FormControl id="password">
               <FormLabel>Password</FormLabel>
-              <Input type="password" />
+              <Input
+                name="password"
+                onChange={handleFormChange}
+                type="password"
+              />
             </FormControl>
             <Stack spacing={10}>
               {/* <Stack
@@ -56,6 +137,7 @@ const Login = () => {
                 _hover={{
                   bg: 'blue.500',
                 }}
+                onClick={handleLogin}
               >
                 Sign in
               </Button>
@@ -63,7 +145,7 @@ const Login = () => {
             <Stack pt={6}>
               <Text align={'center'}>
                 Don't have an account?{' '}
-                <NextLink href="signup">
+                <NextLink passhref href="signup">
                   <Link color={'blue.400'}>Sign Up</Link>
                 </NextLink>
               </Text>
