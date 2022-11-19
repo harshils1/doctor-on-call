@@ -2,7 +2,7 @@ import { useRouter } from 'next/router'
 import { useState, useEffect } from 'react'
 import { auth, db } from '../firebase-client/config'
 import { getDoc, doc } from 'firebase/firestore'
-import { onAuthStateChanged } from 'firebase/auth'
+import { onAuthStateChanged, signOut } from 'firebase/auth'
 import {
   Button,
   Flex,
@@ -12,10 +12,12 @@ import {
   Input,
   Stack,
   useColorModeValue,
+  useToast,
 } from '@chakra-ui/react'
 
 const Account = () => {
   const router = useRouter()
+  const toast = useToast()
 
   const [loading, setLoading] = useState(true)
   const [user, setUser] = useState({
@@ -46,6 +48,25 @@ const Account = () => {
 
   const updateProfile = (e) => {
     e.preventDefault()
+  }
+
+  const handleLogout = async (e) => {
+    e.preventDefault()
+
+    setLoading(true)
+
+    try {
+      await signOut(auth)
+    } catch (error) {
+      toast({
+        title: 'An error occured',
+        description: error.message,
+        status: 'error',
+        duration: 3000,
+        isClosable: true,
+      })
+      setLoading(false)
+    }
   }
 
   return (
@@ -130,7 +151,7 @@ const Account = () => {
             />
           </FormControl>
         ) : null}
-        {/* <Stack spacing={6} direction={['column', 'row']}>
+        <Stack spacing={6} direction={['column', 'row']}>
           <Button
             bg={'blue.400'}
             color={'white'}
@@ -138,10 +159,11 @@ const Account = () => {
             _hover={{
               bg: 'blue.500',
             }}
+            onClick={handleLogout}
           >
-            Update
+            Logout
           </Button>
-        </Stack> */}
+        </Stack>
       </Stack>
     </Flex>
   )
