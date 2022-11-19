@@ -79,7 +79,7 @@ const SignUp = () => {
       let isValid = Object.values(formState).every(
         (x) => x !== null && x !== '',
       )
-      if (formState['userType'] == 'doctor' && !formState['specialty'])
+      if (formState['userType'] == 'Doctor' && !formState['specialty'])
         isValid = false
       return isValid
     })()
@@ -187,7 +187,7 @@ const SignUp = () => {
               <FormLabel>Username</FormLabel>
               <Input name="username" onChange={handleFormChange} type="text" />
             </FormControl>
-            <FormControl id="userType">
+            <FormControl id="country">
               <FormLabel>Country</FormLabel>
               <Select
                 name="country"
@@ -214,11 +214,11 @@ const SignUp = () => {
                 onChange={handleFormChange}
                 placeholder="Select account type"
               >
-                <option value="doctor">Doctor</option>
-                <option value="patient">Patient</option>
+                <option value="Doctor">Doctor</option>
+                <option value="Patient">Patient</option>
               </Select>
             </FormControl>
-            {formState['userType'] == 'doctor' ? (
+            {formState['userType'] == 'Doctor' ? (
               <FormControl id="specialty">
                 <FormLabel>Specialty</FormLabel>
                 <Input
