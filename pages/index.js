@@ -7,15 +7,6 @@ import { setDoc, doc } from 'firebase/firestore'
 import { Button } from '@chakra-ui/react'
 
 export default function Home() {
-  useEffect(() => {
-    ;(async () => {
-      await setDoc(doc(db, 'cities', 'LA'), {
-        name: 'Los Angeles',
-        state: 'CA',
-        country: 'USA',
-      })
-    })()
-  }, [])
   return (
     <div className={styles.container}>
       <Head>
