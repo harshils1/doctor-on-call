@@ -15,6 +15,8 @@ import {
   Link,
   Select,
   useToast,
+  Spinner,
+  Center,
 } from '@chakra-ui/react'
 import { useEffect, useState } from 'react'
 import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons'
@@ -33,7 +35,7 @@ const SignUp = () => {
   const toast = useToast()
 
   const [showPassword, setShowPassword] = useState(false)
-
+  const [loading, setLoading] = useState(true)
   const [formState, setFormState] = useState({
     city: '',
     country: '',
@@ -52,6 +54,7 @@ const SignUp = () => {
         router.push('/')
       } else {
         unsubscribe()
+        setLoading(false)
       }
     })
 
@@ -69,6 +72,8 @@ const SignUp = () => {
 
   const handleSignup = async (e) => {
     e.preventDefault()
+
+    setLoading(true)
 
     const isValid = (() => {
       let isValid = Object.values(formState).every(
@@ -120,7 +125,16 @@ const SignUp = () => {
         duration: 3000,
         isClosable: true,
       })
+      setLoading(false)
     }
+  }
+
+  if (loading) {
+    return (
+      <Center marginTop={20}>
+        <Spinner size="xl" />
+      </Center>
+    )
   }
 
   return (

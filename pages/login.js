@@ -11,10 +11,16 @@ import {
   Text,
   useColorModeValue,
   useToast,
+  Spinner,
+  Center,
 } from '@chakra-ui/react'
 import NextLink from 'next/link'
 import { useRouter } from 'next/router'
-import { signInWithEmailAndPassword, onAuthStateChanged } from 'firebase/auth'
+import {
+  signInWithEmailAndPassword,
+  onAuthStateChanged,
+  signOut,
+} from 'firebase/auth'
 import { auth } from '../firebase-client/config'
 import { useState, useEffect } from 'react'
 
@@ -22,6 +28,7 @@ const Login = () => {
   const router = useRouter()
   const toast = useToast()
 
+  const [loading, setLoading] = useState(true)
   const [formState, setFormState] = useState({
     email: '',
     password: '',
@@ -33,6 +40,7 @@ const Login = () => {
         router.push('/')
       } else {
         unsubscribe()
+        setLoading(false)
       }
     })
 
@@ -50,6 +58,8 @@ const Login = () => {
 
   const handleLogin = async (e) => {
     e.preventDefault()
+
+    setLoading(true)
 
     const isValid = Object.values(formState).every(
       (x) => x !== null && x !== '',
@@ -89,7 +99,16 @@ const Login = () => {
         duration: 3000,
         isClosable: true,
       })
+      setLoading(false)
     }
+  }
+
+  if (loading) {
+    return (
+      <Center marginTop={20}>
+        <Spinner size="xl" />
+      </Center>
+    )
   }
 
   return (
