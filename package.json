@@ -12,6 +12,7 @@
     "stopall": "lsof -t -i:2000 -i:6001 -i:9080 -i:8086 -i:9099 | xargs kill -9"
   },
   "dependencies": {
+    "@chakra-ui/icons": "^2.0.12",
     "@chakra-ui/react": "^2.4.1",
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
