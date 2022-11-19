@@ -4,17 +4,17 @@
     },
     "emulators": {
       "firestore": {
-        "port": "8086"
+        "port": 8086
       },
       "ui": {
         "enabled": true,
-        "port": "6002"
+        "port": 6002
       },
       "auth": {
-        "port": "9099"
+        "port": 9099
       },
       "functions": {
-        "port": "6001"
+        "port": 6001
       }
     }
   }
