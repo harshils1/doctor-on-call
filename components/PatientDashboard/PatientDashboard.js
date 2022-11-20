@@ -1,4 +1,4 @@
-import { Text, Heading, Flex, Stack } from '@chakra-ui/react'
+import { Text, Heading, Flex, Stack, Wrap } from '@chakra-ui/react'
 import NewRequest from './NewRequest'
 import PendingRequests from './PendingRequests'
 import LocalDoctors from './LocalDoctors'
@@ -14,11 +14,11 @@ const PatientDashboard = ({ user }) => {
     >
       <Stack spacing={20}>
         <Heading>Hello {user['firstName']}.</Heading>
-        <Stack direction={{ base: 'column', md: 'row' }} spacing={10}>
+        <Wrap justify={'center'} spacing={10}>
           <NewRequest />
           <PendingRequests user={user} />
           <LocalDoctors user={user} />
-        </Stack>
+        </Wrap>
       </Stack>
     </Flex>
   )

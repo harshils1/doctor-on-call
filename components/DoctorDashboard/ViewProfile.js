@@ -1,7 +1,7 @@
 import NextLink from 'next/link'
 import { Flex, Button } from '@chakra-ui/react'
 
-const NewRequest = () => {
+const ViewProfile = ({ user }) => {
   return (
     <Flex
       backgroundColor={'gray.200'}
@@ -13,17 +13,17 @@ const NewRequest = () => {
       alignItems={'center'}
       p={5}
     >
-      <NextLink passHref href="/create-request">
+      <NextLink passHref href={`/doctors/${user['uid']}`}>
         <Button
           _hover={{ backgroundColor: 'gray.500' }}
           backgroundColor={'black'}
           textColor="white"
         >
-          Create Request
+          View Public Profile
         </Button>
       </NextLink>
     </Flex>
   )
 }
 
-export default NewRequest
+export default ViewProfile

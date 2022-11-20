@@ -1,5 +1,14 @@
-import { Text, Heading, Flex, Stack } from '@chakra-ui/react'
+import {
+  Text,
+  Heading,
+  Stack,
+  Flex,
+  Wrap,
+  WrapItem,
+  Center,
+} from '@chakra-ui/react'
 import PendingRequests from './PendingRequests'
+import ViewProfile from './ViewProfile'
 
 const DoctorDashboard = ({ user }) => {
   return (
@@ -12,9 +21,10 @@ const DoctorDashboard = ({ user }) => {
     >
       <Stack spacing={20}>
         <Heading>Hello {user['firstName']}.</Heading>
-        <Stack direction={{ base: 'column', md: 'row' }} spacing={10}>
+        <Wrap justify={'center'} spacing={10}>
+          <ViewProfile user={user} />
           <PendingRequests user={user} />
-        </Stack>
+        </Wrap>
       </Stack>
     </Flex>
   )

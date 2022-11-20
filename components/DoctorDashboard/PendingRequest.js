@@ -36,7 +36,7 @@ const PendingRequest = ({ pendingRequest }) => {
             {Date(pendingRequest['dateCreated'])}
           </Text>
           <Text fontSize={20} fontWeight={600}>
-            <strong>Address:</strong> {Date(requestingPatient['address'])}
+            <strong>Address:</strong> {requestingPatient['address']}
           </Text>
         </Stack>
         <Flex justify={'center'}>
