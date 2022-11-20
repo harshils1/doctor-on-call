@@ -17,6 +17,7 @@ const PendingRequest = ({ pendingRequest }) => {
       setRequestedDoctors(doctors)
     })()
   }, [])
+
   return (
     <Flex
       backgroundColor={'gray.400'}
@@ -30,6 +31,9 @@ const PendingRequest = ({ pendingRequest }) => {
       <Stack spacing={6}>
         <Stack spacing={4}>
           <Stack>
+            <Text fontSize={20} fontWeight={600}>
+              {pendingRequest['title']}
+            </Text>
             <Text fontSize={20} fontWeight={700}>
               Requested Doctors:
             </Text>
@@ -42,8 +46,10 @@ const PendingRequest = ({ pendingRequest }) => {
             ))}
           </Stack>
           <Text fontSize={20} fontWeight={600}>
-            <strong>Date Requested:</strong>{' '}
-            {Date(pendingRequest['dateCreated'])}
+            <strong>Time Requested:</strong>{' '}
+            {new Date(
+              pendingRequest['dateCreated'].seconds * 1000,
+            ).toLocaleString()}
           </Text>
         </Stack>
         <Flex justify={'center'}>

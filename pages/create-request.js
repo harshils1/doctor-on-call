@@ -210,6 +210,7 @@ export default function CreateRequestPage() {
                   bg: 'blue.500',
                 }}
                 onClick={createRequest}
+                disabled={!selectedDoctorIds.length}
               >
                 Create
               </Button>
