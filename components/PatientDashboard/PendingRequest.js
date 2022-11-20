@@ -1,5 +1,13 @@
 import NextLink from 'next/link'
-import { Flex, Stack, Button, Text } from '@chakra-ui/react'
+import {
+  Flex,
+  Stack,
+  Button,
+  Text,
+  Alert,
+  AlertIcon,
+  AlertTitle,
+} from '@chakra-ui/react'
 import { getDoc, doc } from 'firebase/firestore'
 import { db } from '../../firebase-client/config'
 import { useEffect, useState } from 'react'
@@ -18,6 +26,10 @@ const PendingRequest = ({ pendingRequest }) => {
     })()
   }, [])
 
+  const acceptedDoctor = requestedDoctors.find(
+    (doctor) => doctor.uid == pendingRequest['acceptingDoctorUid'],
+  )
+
   return (
     <Flex
       backgroundColor={'gray.400'}
@@ -29,21 +41,42 @@ const PendingRequest = ({ pendingRequest }) => {
       px={5}
     >
       <Stack spacing={6}>
+        {pendingRequest['acceptingDoctorUid'] ? (
+          <Alert status="success" w="fit-content" rounded="2xl" m="auto">
+            <AlertIcon />
+            <AlertTitle>Accepted</AlertTitle>
+          </Alert>
+        ) : (
+          <Alert status="warning" w="fit-content" rounded="2xl" m="auto">
+            <AlertIcon />
+            <AlertTitle>Pending</AlertTitle>
+          </Alert>
+        )}
         <Stack spacing={4}>
-          <Stack>
-            <Text fontSize={20} fontWeight={600}>
+          <Stack spacing={4}>
+            <Text fontSize={25} fontWeight={600}>
               {pendingRequest['title']}
             </Text>
-            <Text fontSize={20} fontWeight={700}>
-              Requested Doctors:
-            </Text>
-            {requestedDoctors.map((doctor) => (
-              <NextLink passHref href={`/doctors/${doctor['uid']}`}>
-                <Text pl={2} fontSize={15} fontWeight={500}>
-                  {doctor['firstName']} {doctor['lastName']}
+
+            {pendingRequest['acceptingDoctorUid'] ? (
+              <Text fontSize={20} fontWeight={600}>
+                Accepted By: {acceptedDoctor?.firstName}{' '}
+                {acceptedDoctor?.lastName}{' '}
+              </Text>
+            ) : (
+              <Spacing>
+                <Text fontSize={20} fontWeight={600}>
+                  Requested Doctors:
                 </Text>
-              </NextLink>
-            ))}
+                {requestedDoctors.map((doctor) => (
+                  <NextLink passHref href={`/doctors/${doctor['uid']}`}>
+                    <Text pl={2} fontSize={15} fontWeight={500}>
+                      {doctor['firstName']} {doctor['lastName']}
+                    </Text>
+                  </NextLink>
+                ))}
+              </Spacing>
+            )}
           </Stack>
           <Text fontSize={20} fontWeight={600}>
             <strong>Time Requested:</strong>{' '}

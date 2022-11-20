@@ -140,14 +140,16 @@ const Chat = () => {
               borderColor="black"
               padding={5}
               marginX={10}
-              rounded={'xl'}
+              rounded={20}
+              borderBottomLeftRadius={message.sender == self.uid ? 20 : 0}
+              borderBottomRightRadius={message.sender == self.uid ? 0 : 20}
               backgroundColor="gray.100"
             >
               <Text>{message.content}</Text>
             </Flex>
             <Text marginX={10} marginBottom={5}>
               {message.sender == self.uid ? self.firstName : other.firstName} (
-              {Date(message.dateCreated)})
+              {new Date(message.dateCreated.seconds * 1000).toLocaleString()})
             </Text>
           </Flex>
         ))}

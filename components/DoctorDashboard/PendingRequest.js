@@ -1,5 +1,13 @@
 import NextLink from 'next/link'
-import { Flex, Stack, Button, Text } from '@chakra-ui/react'
+import {
+  Flex,
+  Stack,
+  Button,
+  Text,
+  Alert,
+  AlertIcon,
+  AlertTitle,
+} from '@chakra-ui/react'
 import { getDoc, doc } from 'firebase/firestore'
 import { db } from '../../firebase-client/config'
 import { useEffect, useState } from 'react'
@@ -27,11 +35,22 @@ const PendingRequest = ({ pendingRequest }) => {
       px={5}
     >
       <Stack spacing={6}>
+        {pendingRequest['acceptingDoctorUid'] ? (
+          <Alert status="success" w="fit-content" rounded="2xl" m="auto">
+            <AlertIcon />
+            <AlertTitle>Accepted</AlertTitle>
+          </Alert>
+        ) : (
+          <Alert status="warning" w="fit-content" rounded="2xl" m="auto">
+            <AlertIcon />
+            <AlertTitle>Pending</AlertTitle>
+          </Alert>
+        )}
         <Stack>
-          <Text fontSize={20} fontWeight={600}>
+          <Text fontSize={25} fontWeight={600}>
             {pendingRequest['title']}
           </Text>
-          <Text fontSize={25} fontWeight={900}>
+          <Text fontSize={25} fontWeight={800}>
             {requestingPatient['firstName']} {requestingPatient['lastName']}
           </Text>
           <Text fontSize={20} fontWeight={600}>
