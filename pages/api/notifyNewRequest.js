@@ -24,32 +24,35 @@ var readHTMLFile = function (path, callback) {
   })
 }
 
-export default function handler(req, res) {
+export default async function handler(req, res) {
   let template = () => {}
 
-  readHTMLFile(
-    path.join(process.cwd(), '/public/new-request.html'),
-    function (err, html) {
-      template = handlebars.compile(html)
+  await new Promise((resolve, reject) => {
+    readHTMLFile(
+      path.join(process.cwd(), '/public/new-request.html'),
+      function (err, html) {
+        template = handlebars.compile(html)
 
-      for (const doctor of req.body.doctors) {
-        const mailOptions = {
-          from: 'Doctor On-Call <doctor.on.call.hackathon@gmail.com>',
-          to: doctor.email,
-          subject: `You have a new request`,
-          html: template({}),
-        }
-
-        transporter.sendMail(mailOptions, function (error, info) {
-          if (error) {
-            console.log(error)
-          } else {
-            console.log('Email sent: ' + info.response)
+        for (const doctor of req.body.doctors) {
+          const mailOptions = {
+            from: 'Doctor On-Call <doctor.on.call.hackathon@gmail.com>',
+            to: doctor.email,
+            subject: `You have a new request`,
+            html: template({}),
           }
-        })
-      }
-    },
-  )
+
+          transporter.sendMail(mailOptions, function (error, info) {
+            if (error) {
+              console.log(error)
+            } else {
+              console.log('Email sent: ' + info.response)
+            }
+            resolve()
+          })
+        }
+      },
+    )
+  })
 
   res.status(200).send('success')
 }
