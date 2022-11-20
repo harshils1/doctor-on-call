@@ -37,7 +37,7 @@ export default function ViewRequestPage() {
 
   const [response, setResponse] = useState('')
 
-  const [acceptingDoctor, setAcceptingDoctor] = useState(null)
+  const [acceptingDoctor, setAcceptingDoctor] = useState(null);
 
   const [loading, setLoading] = useState(true)
 

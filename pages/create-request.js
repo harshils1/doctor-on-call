@@ -168,6 +168,7 @@ export default function CreateRequestPage() {
       acceptingDoctorResponse: null,
       fulfilled: false,
       dateCreated: new Date(),
+      reviewed: false,
     })
 
     setCreated(true)
