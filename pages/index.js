@@ -18,13 +18,13 @@ export default function Home() {
       <Container className="flex flex-wrap ">
       <div className="flex items-center w-full lg:w-1/2">
         <div className="ml-10 max-w-2xl mb-8">
-          <h1 className="text-3xl font-bold leading-snug tracking-tight text-gray-800 lg:text-6xl lg:leading-tight xl:text-6xl xl:leading-tight text-white">
+          <h1 className="text-3xl font-bold leading-snug tracking-tight text-gray-800 lg:text-6xl lg:leading-tight xl:text-6xl xl:leading-tight text-black">
             Doctor On-Call
           </h1>
-          <p className="py-4 text-xl leading-normal text-gray-500 lg:text-xl xl:text-3xl text-gray-300">
+          <p className="py-4 text-xl leading-normal text-gray-700 lg:text-xl xl:text-3xl">
               Your one-stop application to a better you!
           </p>
-          <p className="py-11 text-xs leading-normal text-gray-500 lg:text-xl xl:text-1xl text-gray-300">
+          <p className="py-12 text-xs leading-normal text-gray-500 lg:text-xl xl:text-1xl">
               Sign Up. Request a Doctor. Feel Better.
           </p>
         </div>
