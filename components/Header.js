@@ -12,7 +12,6 @@ import {
   PopoverTrigger,
   PopoverContent,
   useColorModeValue,
-  useBreakpointValue,
   useDisclosure,
   Image,
 } from '@chakra-ui/react'
@@ -21,9 +20,11 @@ import { HamburgerIcon, CloseIcon, ChevronDownIcon } from '@chakra-ui/icons'
 import { auth } from '../firebase-client/config'
 import { onAuthStateChanged } from 'firebase/auth'
 import { useState, useEffect } from 'react'
+import { useRouter } from 'next/router'
 
 export default function Header() {
-  const { isOpen, onToggle } = useDisclosure()
+  const router = useRouter()
+  const { isOpen, onToggle, onClose } = useDisclosure()
 
   const [loggedIn, setLoggedIn] = useState(false)
 
@@ -38,6 +39,10 @@ export default function Header() {
 
     return () => unsubscribe()
   }, [])
+
+  useEffect(() => {
+    onClose()
+  }, [router.asPath])
 
   return (
     <Box>
@@ -189,9 +194,10 @@ const DesktopNav = ({ loggedIn }) => {
 const MobileNav = ({ loggedIn }) => {
   return (
     <Stack
-      bg={useColorModeValue('white', 'gray.800')}
       p={4}
       display={{ md: 'none' }}
+      zIndex={100}
+      backgroundColor={'white'}
     >
       {NAV_ITEMS.filter((navItem) => loggedIn || !navItem['isProtected']).map(
         (navItem) => (
@@ -206,7 +212,7 @@ const MobileNavItem = ({ label, children, href }) => {
   const { isOpen, onToggle } = useDisclosure()
 
   return (
-    <Stack spacing={4} onClick={children && onToggle}>
+    <Stack zIndex={100} spacing={4} onClick={children && onToggle}>
       <NextLink href={href ?? '/'} passHref>
         <Flex
           py={2}
@@ -241,7 +247,6 @@ const MobileNavItem = ({ label, children, href }) => {
           pl={4}
           borderLeft={1}
           borderStyle={'solid'}
-          borderColor={useColorModeValue('gray.200', 'gray.700')}
           align={'start'}
         >
           {children &&

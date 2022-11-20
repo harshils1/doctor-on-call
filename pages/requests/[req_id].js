@@ -136,7 +136,7 @@ export default function ViewRequestPage() {
             ? 'You have accepted this request.'
             : 'Another doctor has accepted this request.'}
         </p>
-        <NextLink href={`/requests/${router.query.req_id}/chat`}>
+        <NextLink passHref href={`/requests/${router.query.req_id}/chat`}>
           <Button>Chat</Button>
         </NextLink>
       </>
@@ -169,8 +169,8 @@ export default function ViewRequestPage() {
         <p>This request was accepted by</p>
         <DoctorRow details={acceptingDoctor} />
         <Button width={'100px'}>
-          <NextLink href={`/requests/${router.query.req_id}/chat`}>
-            Chat
+          <NextLink passHref href={`/requests/${router.query.req_id}/chat`}>
+            <Button>Chat</Button>
           </NextLink>
         </Button>
         <p>Message from the doctor: </p>
