@@ -14,7 +14,7 @@ const PatientDashboard = ({ user }) => {
     >
       <Stack spacing={20}>
         <Heading>Hello {user['firstName']}.</Heading>
-        <Wrap justify={'center'} spacing={10}>
+        <Wrap justify={{ base: 'center', md: 'left' }} spacing={10}>
           <NewRequest />
           <PendingRequests user={user} />
           <LocalDoctors user={user} />
