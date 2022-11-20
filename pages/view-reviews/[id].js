@@ -27,27 +27,18 @@ const Review = () => {
       } else {
         const querySnapshot = await getDocs(
             query(
+              collection(db, `users/${id}/reviews`)
+            ),
+          )
+
+          const querySnap = await getDocs(
+            query(
               collection(db, 'users'),
               where('uid', '==', id),
             ),
           )
+         
           setDoctor(querySnapshot.docs.map((doc) => doc.data()))
-          setLoading(false)      
-        }})
-
-    return () => unsubscribe()
-  }, [])
-
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, async (user) => {
-      if (!user) {
-        router.push('/')
-      } else {
-        const querySnapshot = await getDocs(
-            query(
-              collection(db, `users/${id}/reviews`)
-            ),
-          )
           setReviews(querySnapshot.docs.map((doc) => doc.data()))
           setAverageRating(querySnapshot.docs.map((doc) => doc.data()))
 
