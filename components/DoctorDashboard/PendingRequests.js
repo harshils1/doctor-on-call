@@ -16,7 +16,11 @@ const PendingRequests = ({ user }) => {
       )
       setPendingRequests(
         querySnapshot.docs
-          .map((doc) => doc.data())
+          .map((doc) => {
+            const obj = doc.data()
+            obj.id = doc.id
+            return obj
+          })
           .filter((pendingRequest) =>
             pendingRequest['receivingDoctors'].includes(user.uid),
           ),
@@ -29,7 +33,7 @@ const PendingRequests = ({ user }) => {
     <Flex
       backgroundColor={'gray.200'}
       minW={'fit-content'}
-      w={{ base: 'full', md: 80 }}
+      w={{ base: 'full', md: 200 }}
       rounded={'xl'}
       justify="center"
       py={10}

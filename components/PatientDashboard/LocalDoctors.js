@@ -2,6 +2,7 @@ import { Flex, Stack, Text, Spinner, Center } from '@chakra-ui/react'
 import { useEffect, useState } from 'react'
 import { collection, query, where, getDocs } from 'firebase/firestore'
 import { db } from '../../firebase-client/config'
+import NextLink from 'next/link'
 
 const LocalDoctors = ({ user }) => {
   const [loading, setLoading] = useState(true)
@@ -50,7 +51,25 @@ const LocalDoctors = ({ user }) => {
             direction={'column'}
           >
             {doctors.map((doctor) => (
-              <p>{doctors['firstName']}</p>
+              <NextLink passHref href={`/doctors/${doctor['uid']}`}>
+                <Flex
+                  textAlign={'center'}
+                  flexDir={'column'}
+                  backgroundColor={'gray.400'}
+                  minW={'fit-content'}
+                  w={{ base: 'full', md: 80 }}
+                  rounded={'xl'}
+                  justify="center"
+                  py={8}
+                >
+                  <Text textSize={25} fontWeight={800}>
+                    {doctor['firstName']} {doctor['lastName']}
+                  </Text>{' '}
+                  <Text textSize={20} fontWeight={500}>
+                    {doctor['specialty']}
+                  </Text>
+                </Flex>
+              </NextLink>
             ))}
           </Stack>
         ) : (

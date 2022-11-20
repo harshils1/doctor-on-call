@@ -14,11 +14,17 @@ const PendingRequests = ({ user }) => {
       const querySnapshot = await getDocs(
         query(
           collection(db, 'requests'),
-          where('receivingUser', '==', user['uid']),
+          where('requestingUser', '==', user['uid']),
           where('fulfilled', '==', false),
         ),
       )
-      setPendingRequests(querySnapshot.docs.map((doc) => doc.data()))
+      setPendingRequests(
+        querySnapshot.docs.map((doc) => {
+          const obj = doc.data()
+          obj.id = doc.id
+          return obj
+        }),
+      )
       setLoading(false)
     })()
   }, [])
@@ -27,7 +33,7 @@ const PendingRequests = ({ user }) => {
     <Flex
       backgroundColor={'gray.200'}
       minW={'fit-content'}
-      w={{ base: 'full', md: 80 }}
+      w={{ base: 'full', md: 200 }}
       rounded={'xl'}
       justify="center"
       py={10}

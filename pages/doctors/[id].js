@@ -34,7 +34,7 @@ const Doctor = () => {
       } else {
         const doctorDoc = await getDoc(doc(db, 'users', router.query.id))
 
-        if (doctorDoc.data().userType == 'Doctor') {
+        if (doctorDoc.data().userType != 'Doctor') {
           router.push('/')
         }
 
