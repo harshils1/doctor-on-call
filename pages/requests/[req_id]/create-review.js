@@ -47,7 +47,6 @@ const Review = () => {
   }, [router.query])
 
   const [formState, setFormState] = useState({
-    date: '',
     stars: '',
     message: '',
   })
@@ -87,6 +86,7 @@ const Review = () => {
       await addDoc(collection(db, `users/${docID}/reviews`), {
         ...formState,
         requestId: router.query.req_id,
+        dateCreated: new Date(),
       })
 
       toast({
@@ -128,14 +128,6 @@ const Review = () => {
           p={8}
         >
           <Stack spacing={4}>
-            <HStack>
-              <Box>
-                <FormControl id="date">
-                  <FormLabel>Enter Current Date</FormLabel>
-                  <Input name="date" onChange={handleFormChange} type="date" />
-                </FormControl>
-              </Box>
-            </HStack>
             <FormControl id="stars">
               <FormLabel>Rating</FormLabel>
               <Select
