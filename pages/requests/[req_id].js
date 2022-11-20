@@ -21,7 +21,8 @@ import {
   addDoc,
 } from 'firebase/firestore'
 import { useRouter } from 'next/router'
-import DoctorRow from '../../components/DoctorRow'
+import DoctorRow from '../../components/DoctorRow';
+import NextLink from "next/link";
 
 export default function ViewRequestPage() {
   const router = useRouter()
@@ -92,6 +93,15 @@ export default function ViewRequestPage() {
     refetchRequest()
   }
 
+  const fulfillRequest = async () => {
+    await setDoc(doc(db, 'requests', router.query.req_id), {
+      ...request,
+      fulfilled: true
+    })
+
+    refetchRequest()
+  }
+
   const renderAcceptanceForDoctors = () => {
     return request?.acceptingDoctorUid ? (
       <p>
@@ -127,9 +137,11 @@ export default function ViewRequestPage() {
       <>
         <p>This request was accepted by</p>
         <DoctorRow details={acceptingDoctor} />
-        <NextLink href={`/requests/${router.query.req_id}/chat`}>
-          <Button>Chat</Button>
-        </NextLink>
+        <Button width={"100px"}>
+          <NextLink href={`/requests/${router.query.req_id}/chat`}>
+            Chat
+          </NextLink>
+        </Button>
         <p>Message from the doctor: </p>
         <Textarea
           value={request?.acceptingDoctorResponse}
@@ -140,6 +152,40 @@ export default function ViewRequestPage() {
     ) : (
       <p>Waiting for a doctor to accept this request.</p>
     )
+  }
+
+  const renderFulfillment = () => {
+    return request?.fulfilled ? (
+      <Box
+        rounded={'lg'}
+        bg={useColorModeValue('white', 'gray.700')}
+        boxShadow={'md'}
+        p={8}
+        width={'full'}
+      ><p>This request has been fulfilled.</p></Box>
+    ) : (
+      <Box
+        rounded={'lg'}
+        bg={useColorModeValue('white', 'gray.700')}
+        boxShadow={'md'}
+        p={8}
+        width={'full'}
+      >
+        <Button
+          fontSize={'2xl'}
+          bg={'blue.400'}
+          color={'white'}
+          _hover={{
+            bg: 'blue.500',
+          }}
+          width={'500px'}
+          height={'50px'}
+          onClick={fulfillRequest}
+        >
+          Set this request as fulfilled.
+        </Button>
+      </Box>
+    );
   }
 
   return (
@@ -204,6 +250,7 @@ export default function ViewRequestPage() {
             {user?.userType === 'Patient' && renderAcceptanceForPatient()}
           </Stack>
         </Box>
+        {user?.userType === "Patient" && request?.acceptingDoctorUid && renderFulfillment()}
       </Stack>
     </Flex>
   )
