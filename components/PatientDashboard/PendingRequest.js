@@ -34,7 +34,7 @@ const PendingRequest = ({ pendingRequest }) => {
     <Flex
       backgroundColor={'gray.400'}
       minW={'fit-content'}
-      w={{ base: 'full', md: 80 }}
+      w={{ base: 'full', md: 400 }}
       rounded={'xl'}
       justify="center"
       py={10}
