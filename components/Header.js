@@ -88,6 +88,7 @@ export default function Header() {
           spacing={6}
         >
           {loggedIn ? (
+            <>
             <NextLink href={'/account'} passHref>
               <Button
                 display={{ base: 'none', md: 'inline-flex' }}
@@ -102,6 +103,12 @@ export default function Header() {
                 Account
               </Button>
             </NextLink>
+            <NextLink href={'/view-reviews'} passHref>
+              <Button fontSize={'sm'} fontWeight={400}>
+                View Reviews
+              </Button>
+            </NextLink>
+            </>
           ) : (
             <>
               <NextLink href={'/login'} passHref>
