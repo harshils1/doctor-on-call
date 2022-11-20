@@ -13,6 +13,8 @@ import {
   Select,
   useToast,
   Textarea,
+  Spinner,
+  Center,
 } from '@chakra-ui/react'
 import { useEffect, useState } from 'react'
 import { doc, setDoc, getDoc, collection, addDoc } from 'firebase/firestore'
@@ -26,6 +28,8 @@ const Review = () => {
   const [request, setRequest] = useState(null)
 
   const [doctor, setDoctor] = useState(null)
+
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     if (!router.query.req_id) return
@@ -42,6 +46,8 @@ const Review = () => {
       const IDSnapshot = await getDoc(reqID)
       const fetchedDoctor = IDSnapshot.data()
       setDoctor(fetchedDoctor)
+
+      setLoading(false)
     }
 
     fetchData()
@@ -63,6 +69,8 @@ const Review = () => {
 
   const handleReview = async (e) => {
     e.preventDefault()
+
+    setLoading(true)
 
     const isValid = (() => {
       let isValid = Object.values(formState).every(
@@ -90,10 +98,12 @@ const Review = () => {
         dateCreated: new Date(),
       })
 
-      await setDoc(doc(db, "requests", router.query.req_id), {
+      await setDoc(doc(db, 'requests', router.query.req_id), {
         ...request,
         reviewed: true,
-      });
+      })
+
+      setLoading(false)
 
       toast({
         title: 'Review submitted successfully!',
@@ -112,6 +122,14 @@ const Review = () => {
         isClosable: true,
       })
     }
+  }
+
+  if (loading) {
+    return (
+      <Center marginTop={20}>
+        <Spinner size="xl" />
+      </Center>
+    )
   }
 
   return (
