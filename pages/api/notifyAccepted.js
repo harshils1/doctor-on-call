@@ -2,12 +2,13 @@ const nodemailer = require('nodemailer')
 var fs = require('fs')
 var handlebars = require('handlebars')
 import path from 'path'
+require('dotenv').config()
 
 const transporter = nodemailer.createTransport({
   service: 'gmail',
   auth: {
     user: 'doctor.on.call.hackathon@gmail.com',
-    pass: 'sajvoxxiwpimyzcy',
+    pass: process.env.GMAIL_PASSWORD,
   },
   secure: true,
 })
