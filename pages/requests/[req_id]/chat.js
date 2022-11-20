@@ -53,7 +53,7 @@ const Chat = () => {
         const requestDoc = await getDoc(
           doc(db, 'requests', router.query.req_id),
         )
-        if (!requestDoc.exists()) {
+        if (!requestDoc.exists() || !requestDoc.data().acceptingDoctorUid) {
           return router.push('/')
         }
         setRequest(requestDoc.data())
