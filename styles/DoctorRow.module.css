@@ -29,3 +29,8 @@
     font-size: 11px;
     margin-left: 10px;
 }
+
+.link {
+    color: rgb(0, 132, 255);
+    text-decoration: underline;
+}

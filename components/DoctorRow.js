@@ -50,7 +50,7 @@ export default function DoctorRow({ details, selected = false, onClick }) {
                 <p className={styles.name}>{details?.firstName} {details?.lastName}</p>
                 <p className={styles.specialty}><b>Specialty:</b> {details?.specialty}</p>
                 <p className={styles.rating}><b>Rating: {rating}</b> </p>
-                <NextLink href={`/doctors/${details.uid}`}>Visit Profile</NextLink>
+                <p><NextLink className={styles.link} href={`/doctors/${details.uid}`}>Visit Profile</NextLink></p>
             </div>
         </div>
     )
