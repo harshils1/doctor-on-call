@@ -28,12 +28,17 @@ const PendingRequest = ({ pendingRequest }) => {
     >
       <Stack spacing={6}>
         <Stack>
+          <Text fontSize={20} fontWeight={600}>
+            {pendingRequest['title']}
+          </Text>
           <Text fontSize={25} fontWeight={900}>
             {requestingPatient['firstName']} {requestingPatient['lastName']}
           </Text>
           <Text fontSize={20} fontWeight={600}>
-            <strong>Date Requested:</strong>{' '}
-            {Date(pendingRequest['dateCreated'])}
+            <strong>Time Requested:</strong>{' '}
+            {new Date(
+              pendingRequest['dateCreated'].seconds * 1000,
+            ).toLocaleString()}
           </Text>
           <Text fontSize={20} fontWeight={600}>
             <strong>Address:</strong> {requestingPatient['address']}

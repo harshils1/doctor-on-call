@@ -2,7 +2,7 @@ import NextLink from 'next/link'
 import { Flex, Button, Stack, Text, Spinner, Center } from '@chakra-ui/react'
 import PendingRequest from './PendingRequest'
 import { useEffect, useState } from 'react'
-import { collection, query, where, getDocs } from 'firebase/firestore'
+import { collection, query, where, getDocs, orderBy } from 'firebase/firestore'
 import { db } from '../../firebase-client/config'
 
 const PendingRequests = ({ user }) => {
@@ -16,6 +16,7 @@ const PendingRequests = ({ user }) => {
           collection(db, 'requests'),
           where('requestingUser', '==', user['uid']),
           where('fulfilled', '==', false),
+          orderBy('dateCreated', 'desc'),
         ),
       )
       setPendingRequests(
