@@ -37,7 +37,7 @@ export default function ViewRequestPage() {
 
   const [response, setResponse] = useState('')
 
-  const [acceptingDoctor, setAcceptingDoctor] = useState(null);
+  const [acceptingDoctor, setAcceptingDoctor] = useState(null)
 
   const [loading, setLoading] = useState(true)
 
@@ -153,7 +153,7 @@ export default function ViewRequestPage() {
           _hover={{
             bg: 'green.500',
           }}
-          width={'300px'}
+          width={{ base: 'full', md: '300px' }}
           height={'50px'}
           onClick={handleAccept}
         >
@@ -192,7 +192,7 @@ export default function ViewRequestPage() {
         bg={useColorModeValue('white', 'gray.700')}
         boxShadow={'md'}
         p={8}
-        width={'full'}
+        width={{ base: 'full', md: '500px' }}
       >
         <p>This request has been fulfilled.</p>
       </Box>
@@ -211,7 +211,7 @@ export default function ViewRequestPage() {
           _hover={{
             bg: 'blue.500',
           }}
-          width={'500px'}
+          width={'full'}
           height={'50px'}
           onClick={fulfillRequest}
         >
