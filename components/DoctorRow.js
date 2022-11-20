@@ -6,7 +6,7 @@ export default function DoctorRow({ details, selected = false, onClick }) {
         <div 
             className={styles.container}
             style={{ border: `solid ${ selected ? "2px #4eaa7b" : " 1px #e6e6e6" }` }}
-            onClick={() => onClick(details)}
+            onClick={() => onClick && onClick(details)}
         >
             <FaUserAlt size={40} color="#d4d4d4" className={styles.profile_pic}/>
             <div className={styles.details}>
