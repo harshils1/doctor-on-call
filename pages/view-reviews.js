@@ -6,13 +6,7 @@ import { onAuthStateChanged, signOut } from 'firebase/auth'
 import { Card, CardHeader, CardBody, CardFooter, SimpleGrid, Text, Spinner, Center} from '@chakra-ui/react'
 import {
   Button,
-  Flex,
-  FormControl,
-  FormLabel,
   Heading,
-  Input,
-  Stack,
-  useColorModeValue,
   useToast,
 } from '@chakra-ui/react'
 
@@ -44,29 +38,6 @@ const Reviews = () => {
     return () => unsubscribe()
   }, [])
 
-  const updateProfile = (e) => {
-    e.preventDefault()
-  }
-
-  const handleLogout = async (e) => {
-    e.preventDefault()
-
-    setLoading(true)
-
-    try {
-      await signOut(auth)
-    } catch (error) {
-      toast({
-        title: 'An error occured',
-        description: error.message,
-        status: 'error',
-        duration: 3000,
-        isClosable: true,
-      })
-      setLoading(false)
-    }
-  }
-
   if (loading) {
     return (
       <Center marginTop={20}>
@@ -80,11 +51,12 @@ const Reviews = () => {
         display:'flex',
         flexDirection: 'row',
         flexWrap: 'wrap',
+        margin: 10
     }}>
         {doctors.map(doctor => (
             <NextLink href={`/view-reviews/${doctor.uid}`} passHref>
                 <SimpleGrid spacing={4} margin='10' templateColumns='repeat(auto-fill, minmax(340px, 1fr))'>
-                <Card>
+                <Card boxShadow= '0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)'>
                     <CardHeader>
                     <Heading size='md' align='center' key={doctor.uid}>{doctor.firstName} {doctor.lastName}</Heading>
                     </CardHeader>
@@ -92,33 +64,7 @@ const Reviews = () => {
                     <Text align='center'>View this doctor's reviews.</Text>
                     </CardBody>
                     <CardFooter>
-                        <Button margin='0 auto'>View here</Button>
-                    </CardFooter>
-                </Card>
-                </SimpleGrid>   
-                <SimpleGrid spacing={4} margin='10' templateColumns='repeat(auto-fill, minmax(340px, 1fr))'>
-                <Card>
-                    <CardHeader>
-                    <Heading size='md' align='center' key={doctor.uid}>{doctor.firstName} {doctor.lastName}</Heading>
-                    </CardHeader>
-                    <CardBody>
-                    <Text align='center'>View this doctor's reviews.</Text>
-                    </CardBody>
-                    <CardFooter>
-                        <Button margin='0 auto'>View here</Button>
-                    </CardFooter>
-                </Card>
-                </SimpleGrid> 
-                <SimpleGrid spacing={4} margin='10' templateColumns='repeat(auto-fill, minmax(340px, 1fr))'>
-                <Card>
-                    <CardHeader>
-                    <Heading size='md' align='center' key={doctor.uid}>{doctor.firstName} {doctor.lastName}</Heading>
-                    </CardHeader>
-                    <CardBody>
-                    <Text align='center'>View this doctor's reviews.</Text>
-                    </CardBody>
-                    <CardFooter>
-                        <Button margin='0 auto'>View here</Button>
+                        <Button colorScheme='blue' margin='0 auto'>View here</Button>
                     </CardFooter>
                 </Card>
                 </SimpleGrid> 

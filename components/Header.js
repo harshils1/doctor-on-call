@@ -103,11 +103,6 @@ export default function Header() {
                 Account
               </Button>
             </NextLink>
-            <NextLink href={'/view-reviews'} passHref>
-              <Button fontSize={'sm'} fontWeight={400}>
-                View Reviews
-              </Button>
-            </NextLink>
             </>
           ) : (
             <>
@@ -270,4 +265,9 @@ const NAV_ITEMS = [
     href: '/dashboard',
     isProtected: true,
   },
+  {
+    label: 'View Doctor Reviews',
+    href: '/view-reviews',
+    isProtected: true,
+  }
 ]
