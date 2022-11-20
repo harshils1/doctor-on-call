@@ -30,6 +30,7 @@ import {
   collection,
   where,
   addDoc,
+  collectionGroup,
 } from 'firebase/firestore'
 import DoctorRow from '../components/DoctorRow'
 
@@ -52,6 +53,8 @@ export default function CreateRequestPage() {
   const [created, setCreated] = useState(false)
 
   const [loading, setLoading] = useState(true)
+
+  const [reviews, setReviews] = useState([]);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
@@ -78,7 +81,11 @@ export default function CreateRequestPage() {
         )
 
         const doctorsSnapshot = await getDocs(q)
-        setDoctors(doctorsSnapshot.docs.map((doc) => doc.data()))
+        setDoctors(doctorsSnapshot.docs.map((doc) => {
+          let data = doc.data();
+          data.id = doc.id;
+          return data;
+        }));
 
         setLoading(false)
       }
@@ -113,10 +120,6 @@ export default function CreateRequestPage() {
       }
     })()
   }, [created])
-
-  useEffect(() => {
-    console.log(selectedDoctorIds)
-  }, [selectedDoctorIds])
 
   const handleFormChange = (e) => {
     setFormState({
