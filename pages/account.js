@@ -161,6 +161,18 @@ const Account = () => {
             />
           </FormControl>
         ) : null}
+        {user['userType'] == 'Patient' ? (
+          <FormControl id="address">
+            <FormLabel>Address</FormLabel>
+            <Input
+              disabled
+              placeholder="Address"
+              _placeholder={{ color: 'gray.500' }}
+              type="text"
+              value={user['address']}
+            />
+          </FormControl>
+        ) : null}
         <Stack spacing={6} direction={['column', 'row']}>
           <Button
             bg={'blue.400'}

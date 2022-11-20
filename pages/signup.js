@@ -81,6 +81,8 @@ const SignUp = () => {
       )
       if (formState['userType'] == 'Doctor' && !formState['specialty'])
         isValid = false
+      if (formState['userType'] == 'Patient' && !formState['address'])
+        isValid = false
       return isValid
     })()
 
@@ -226,6 +228,12 @@ const SignUp = () => {
                   onChange={handleFormChange}
                   type="text"
                 />
+              </FormControl>
+            ) : null}
+            {formState['userType'] == 'Patient' ? (
+              <FormControl id="address">
+                <FormLabel>Address</FormLabel>
+                <Input name="address" onChange={handleFormChange} type="text" />
               </FormControl>
             ) : null}
             <FormControl id="password">

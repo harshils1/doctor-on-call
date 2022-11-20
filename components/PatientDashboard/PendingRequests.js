@@ -14,7 +14,7 @@ const PendingRequests = ({ user }) => {
       const querySnapshot = await getDocs(
         query(
           collection(db, 'requests'),
-          where('receiving_user', '==', user['uid']),
+          where('receivingUser', '==', user['uid']),
           where('fulfilled', '==', false),
         ),
       )

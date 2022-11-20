@@ -18,7 +18,7 @@ const PendingRequests = ({ user }) => {
         querySnapshot.docs
           .map((doc) => doc.data())
           .filter((pendingRequest) =>
-            pendingRequest['receiving_doctors'].includes(user.uid),
+            pendingRequest['receivingDoctors'].includes(user.uid),
           ),
       )
       setLoading(false)
