@@ -9,7 +9,7 @@ const PatientDashboard = ({ user }) => {
     <Flex
       flexDir={'column'}
       minH={'100vh'}
-      px={{ base: 10, md: 20 }}
+      px={{ base: 2, md: 20 }}
       pt={20}
       bg={'gray.50'}
     >
