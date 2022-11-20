@@ -54,7 +54,7 @@ const PendingRequests = ({ user }) => {
             borderWidth={2}
             padding={4}
             rounded={'xl'}
-            maxH={300}
+            maxH={450}
             overflowY={'scroll'}
             overflowX={'hidden'}
             direction={'column'}
