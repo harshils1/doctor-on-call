@@ -14,6 +14,7 @@ import {
   useColorModeValue,
   useBreakpointValue,
   useDisclosure,
+  Image,
 } from '@chakra-ui/react'
 import NextLink from 'next/link'
 import { HamburgerIcon, CloseIcon, ChevronDownIcon } from '@chakra-ui/icons'
@@ -43,7 +44,7 @@ export default function Header() {
       <Flex
         bg={useColorModeValue('white', 'gray.800')}
         color={useColorModeValue('gray.600', 'white')}
-        minH={'60px'}
+        h={'100px'}
         py={{ base: 2 }}
         px={{ base: 4 }}
         borderBottom={1}
@@ -65,16 +66,13 @@ export default function Header() {
             aria-label={'Toggle Navigation'}
           />
         </Flex>
-        <Flex flex={{ base: 1 }} justify={{ base: 'center', md: 'start' }}>
+        <Flex
+          flex={{ base: 1 }}
+          align="center"
+          justify={{ base: 'center', md: 'start' }}
+        >
           <NextLink href={'/'}>
-            <Text
-              _hover={{ cursor: 'pointer' }}
-              textAlign={useBreakpointValue({ base: 'center', md: 'left' })}
-              fontFamily={'heading'}
-              color={useColorModeValue('gray.800', 'white')}
-            >
-              Logo
-            </Text>
+            <Image w={100} src={'/logo.png'} />
           </NextLink>
           <Flex display={{ base: 'none', md: 'flex' }} ml={10}>
             <DesktopNav loggedIn={loggedIn} />
@@ -89,20 +87,20 @@ export default function Header() {
         >
           {loggedIn ? (
             <>
-            <NextLink href={'/account'} passHref>
-              <Button
-                display={{ base: 'none', md: 'inline-flex' }}
-                fontSize={'sm'}
-                fontWeight={600}
-                color={'white'}
-                bg={'gray.800'}
-                _hover={{
-                  bg: 'gray.600',
-                }}
-              >
-                Account
-              </Button>
-            </NextLink>
+              <NextLink href={'/account'} passHref>
+                <Button
+                  display={{ base: 'none', md: 'inline-flex' }}
+                  fontSize={'sm'}
+                  fontWeight={600}
+                  color={'white'}
+                  bg={'gray.800'}
+                  _hover={{
+                    bg: 'gray.600',
+                  }}
+                >
+                  Account
+                </Button>
+              </NextLink>
             </>
           ) : (
             <>
@@ -269,5 +267,5 @@ const NAV_ITEMS = [
     label: 'View Doctor Reviews',
     href: '/view-reviews',
     isProtected: true,
-  }
+  },
 ]

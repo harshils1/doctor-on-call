@@ -116,16 +116,16 @@ const Chat = () => {
     )
   }
   return (
-    <Flex minH={'calc(100vh - 60px)'} align={'center'} justify={'center'}>
+    <Flex minH={'calc(100vh - 100px)'} align={'center'} justify={'center'}>
       <Flex
         position="absolute"
-        top="60px"
+        top="100px"
         alignSelf={'flex-end'}
         w="full"
         mb={'100px'}
         flexDir="column-reverse"
         overflow={'scroll'}
-        h={'calc(100vh - 140px)'}
+        h={'calc(100vh - 180px)'}
       >
         {messages.map((message) => (
           <Flex

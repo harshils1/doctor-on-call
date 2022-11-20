@@ -11,7 +11,7 @@ export default function Home() {
       <Head>
         <title>Doctor On Call</title>
         <meta name="description" content="Doctor On Call" />
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" href="/logo.png" />
       </Head>
     </div>
   )
