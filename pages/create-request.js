@@ -33,7 +33,7 @@ export default function CreateRequestPage () {
 
     const [doctors, setDoctors] = useState([]);
 
-    const [selectedDoctors, setSelectedDoctors] = useState([]);
+    const [selectedDoctorIds, setSelectedDoctorIds] = useState([]);
 
     const [formState, setFormState] = useState({
         title: "",
@@ -92,6 +92,10 @@ export default function CreateRequestPage () {
         }
     }, [created]);
 
+    useEffect(() => {
+        console.log(selectedDoctorIds);
+    }, [selectedDoctorIds])
+
     const handleFormChange = (e) => {
         setFormState({
             ...formState,
@@ -101,26 +105,26 @@ export default function CreateRequestPage () {
 
     const setSelected = (details) => {
         let isSelected = false;
-        selectedDoctors.forEach((doctor) => {
-            if (doctor.uid === details.uid) {
+        selectedDoctorIds.forEach((doctorId) => {
+            if (doctorId === details.uid) {
                 isSelected = true;
             }
         });
 
         if (isSelected) {
-            setSelectedDoctors(selectedDoctors.filter((doctor) => {
-                return doctor.uid !== details.uid;
+            setSelectedDoctorIds(selectedDoctorIds.filter((uid) => {
+                return uid !== details.uid;
             }))
         } else {
-            setSelectedDoctors([...selectedDoctors, details]);
+            setSelectedDoctorIds([...selectedDoctorIds, details.uid]);
         }
     }
 
     const isSelected = (uid) => {
         let selected = false;
 
-        selectedDoctors.forEach(doctor => {
-            if (doctor.uid === uid) {
+        selectedDoctorIds.forEach(doctorUid => {
+            if (doctorUid === uid) {
                 selected = true;
             }
         })
@@ -132,8 +136,8 @@ export default function CreateRequestPage () {
         await addDoc(collection(db, "requests"), {
             title: formState.title,
             message: formState.message,
-            requestingUser: user,
-            receivingDoctors: selectedDoctors,
+            requestingUser: user.uid,
+            receivingDoctors: selectedDoctorIds,
             acceptingDoctorUid: null,
             acceptingDoctorResponse: null,
             fulfilled: false
