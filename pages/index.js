@@ -13,6 +13,7 @@ export default function Home() {
         <meta name="description" content="Doctor On Call" />
         <link rel="icon" href="/logo.png" />
       </Head>
+      <h1 className="text-3xl font-bold underline">Hello world!</h1>
     </div>
   )
 }
