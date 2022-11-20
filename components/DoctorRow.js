@@ -29,7 +29,10 @@ export default function DoctorRow({ details, selected = false, onClick }) {
                 sum += parseInt(doc.data().stars)
             });
 
-            setRating(sum/reviewSnapshot.docs.length);
+            if (!reviewSnapshot.docs.length)
+                setRating("N/A");
+            else
+                setRating(sum/reviewSnapshot.docs.length);
         }
 
         fetchReviews();
@@ -37,19 +40,18 @@ export default function DoctorRow({ details, selected = false, onClick }) {
     }, []);
 
     return (
-        <NextLink href={`/doctors/${details.uid}`}>
-            <div 
-                className={styles.container}
-                style={{ border: `solid ${ selected ? "2px #4eaa7b" : " 1px #e6e6e6" }` }}
-                onClick={() => onClick && onClick(details)}
-            >
-                <FaUserAlt size={40} color="#d4d4d4" className={styles.profile_pic}/>
-                <div className={styles.details}>
-                    <p className={styles.name}>{details?.firstName} {details?.lastName}</p>
-                    <p className={styles.specialty}><b>Specialty:</b> {details?.specialty}</p>
-                    <p className={styles.rating}><b>Rating: {rating}</b> </p>
-                </div>
+        <div 
+            className={styles.container}
+            style={{ border: `solid ${ selected ? "2px #4eaa7b" : " 1px #e6e6e6" }` }}
+            onClick={() => onClick && onClick(details)}
+        >
+            <FaUserAlt size={40} color="#d4d4d4" className={styles.profile_pic}/>
+            <div className={styles.details}>
+                <p className={styles.name}>{details?.firstName} {details?.lastName}</p>
+                <p className={styles.specialty}><b>Specialty:</b> {details?.specialty}</p>
+                <p className={styles.rating}><b>Rating: {rating}</b> </p>
+                <NextLink href={`/doctors/${details.uid}`}>Visit Profile</NextLink>
             </div>
-        </NextLink>
+        </div>
     )
 }
