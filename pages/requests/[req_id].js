@@ -84,11 +84,24 @@ export default function ViewRequestPage() {
   }
 
   const handleAccept = async () => {
-    await setDoc(doc(db, 'requests', router.query.req_id), {
-      ...request,
-      acceptingDoctorUid: user.uid,
-      acceptingDoctorResponse: response,
-    })
+    try {
+      await setDoc(doc(db, 'requests', router.query.req_id), {
+        ...request,
+        acceptingDoctorUid: user.uid,
+        acceptingDoctorResponse: response,
+      })
+
+      await fetch('/api/notifyAccepted', {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ patient: patient }),
+      })
+    } catch (e) {
+      console.log(e)
+    }
 
     refetchRequest()
   }

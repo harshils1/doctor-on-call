@@ -64,7 +64,7 @@ const PendingRequest = ({ pendingRequest }) => {
                 {acceptedDoctor?.lastName}{' '}
               </Text>
             ) : (
-              <Spacing>
+              <Stack>
                 <Text fontSize={20} fontWeight={600}>
                   Requested Doctors:
                 </Text>
@@ -75,7 +75,7 @@ const PendingRequest = ({ pendingRequest }) => {
                     </Text>
                   </NextLink>
                 ))}
-              </Spacing>
+              </Stack>
             )}
           </Stack>
           <Text fontSize={20} fontWeight={600}>

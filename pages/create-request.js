@@ -82,15 +82,29 @@ export default function CreateRequestPage() {
   }, [user])
 
   useEffect(() => {
-    if (created) {
-      toast({
-        title: 'Request created successfully.',
-        status: 'success',
-        duration: 3000,
-        isClosable: true,
-      })
-      router.push('/dashboard')
-    }
+    ;(async () => {
+      if (created) {
+        try {
+          await fetch('/api/notifyNewRequest', {
+            method: 'POST',
+            headers: {
+              Accept: 'application/json',
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ doctors: doctors }),
+          })
+        } catch (e) {
+          console.log(e)
+        }
+        toast({
+          title: 'Request created successfully.',
+          status: 'success',
+          duration: 3000,
+          isClosable: true,
+        })
+        router.push('/dashboard')
+      }
+    })()
   }, [created])
 
   useEffect(() => {
@@ -210,7 +224,10 @@ export default function CreateRequestPage() {
                   bg: 'blue.500',
                 }}
                 onClick={createRequest}
-                disabled={!selectedDoctorIds.length}
+                disabled={
+                  !selectedDoctorIds.length ||
+                  !Object.values(formState).every((x) => x !== null && x !== '')
+                }
               >
                 Create
               </Button>
