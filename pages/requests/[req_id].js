@@ -21,8 +21,8 @@ import {
   addDoc,
 } from 'firebase/firestore'
 import { useRouter } from 'next/router'
-import DoctorRow from '../../components/DoctorRow';
-import NextLink from "next/link";
+import DoctorRow from '../../components/DoctorRow'
+import NextLink from 'next/link'
 
 export default function ViewRequestPage() {
   const router = useRouter()
@@ -104,11 +104,16 @@ export default function ViewRequestPage() {
 
   const renderAcceptanceForDoctors = () => {
     return request?.acceptingDoctorUid ? (
-      <p>
-        {request.acceptingDoctorUid === user.uid
-          ? 'You have accepted this request.'
-          : 'Another doctor has accepted this request.'}
-      </p>
+      <>
+        <p>
+          {request.acceptingDoctorUid === user.uid
+            ? 'You have accepted this request.'
+            : 'Another doctor has accepted this request.'}
+        </p>
+        <NextLink href={`/requests/${router.query.req_id}/chat`}>
+          <Button>Chat</Button>
+        </NextLink>
+      </>
     ) : (
       <>
         <Textarea

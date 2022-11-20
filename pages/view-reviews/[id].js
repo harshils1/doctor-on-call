@@ -3,7 +3,9 @@ import { useState, useEffect } from 'react'
 import { getDocs, query, collection, where } from 'firebase/firestore'
 import { auth, db } from '../../firebase-client/config'
 import { onAuthStateChanged, signOut } from 'firebase/auth'
-import { Card, CardHeader, CardBody, CardFooter, SimpleGrid, Text, Spinner, Center, Stack, StackDivider, Box, StarIcon} from '@chakra-ui/react'
+import { Card, CardHeader, CardBody, SimpleGrid, Text, Spinner, Center} from '@chakra-ui/react'
+import { StarIcon} from '@chakra-ui/icons'
+
 import {
   Button,
   Heading,
@@ -62,6 +64,14 @@ const Review = () => {
     )
   }
 
+  const icons = []
+  for(let i = 0; i < reviews.length; i++) {
+    icons.push([]);
+    for(let j = 0; j < reviews[i].stars; j++) {
+      icons[i].push(<StarIcon/>);
+    }
+  }
+
   return (
     <div>
     <div>
@@ -77,11 +87,11 @@ const Review = () => {
       flexWrap: 'wrap',
       margin: 10
   }}>
-      {reviews.map(review => (
+      {reviews.map((review, i) => (
           <SimpleGrid spacing={4} margin='10' templateColumns='repeat(auto-fill, minmax(340px, 1fr))'>
               <Card boxShadow= '0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)'>
-                  <CardHeader>
-                  <Heading size='md' align='center' key={doctor.uid}>Stars: {review.stars}</Heading>
+                  <CardHeader align = 'center'>
+                  {icons[i]}
                   </CardHeader>
                   <CardBody>
                   <Text align='center'>{review.message}</Text>
