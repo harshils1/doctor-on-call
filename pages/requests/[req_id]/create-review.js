@@ -37,6 +37,7 @@ const Review = () => {
       setRequest(fetchedRequest)
 
       const docID = fetchedRequest.acceptingDoctorUid
+      if (!docID) return router.push('/')
       const reqID = doc(db, 'users', docID)
       const IDSnapshot = await getDoc(reqID)
       const fetchedDoctor = IDSnapshot.data()
