@@ -94,6 +94,8 @@ export default function ViewRequestPage() {
 
   const handleAccept = async () => {
     try {
+      setLoading(true)
+
       await setDoc(doc(db, 'requests', router.query.req_id), {
         ...request,
         acceptingDoctorUid: user.uid,
