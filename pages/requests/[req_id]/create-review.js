@@ -90,6 +90,11 @@ const Review = () => {
         dateCreated: new Date(),
       })
 
+      await setDoc(doc(db, "requests", router.query.req_id), {
+        ...request,
+        reviewed: true,
+      });
+
       toast({
         title: 'Review submitted successfully!',
         status: 'success',

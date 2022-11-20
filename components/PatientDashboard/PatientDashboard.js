@@ -1,6 +1,7 @@
 import { Text, Heading, Flex, Stack, Wrap } from '@chakra-ui/react'
 import NewRequest from './NewRequest'
 import PendingRequests from './PendingRequests'
+import PendingReviews from './PendingReviews'
 import LocalDoctors from './LocalDoctors'
 
 const PatientDashboard = ({ user }) => {
@@ -18,6 +19,7 @@ const PatientDashboard = ({ user }) => {
           <NewRequest />
           <Wrap spacing={5} flexGrow={1}>
             <PendingRequests user={user} />
+            <PendingReviews user={user}/>
             <LocalDoctors user={user} />
           </Wrap>
         </Wrap>

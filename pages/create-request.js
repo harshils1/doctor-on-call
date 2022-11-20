@@ -14,6 +14,8 @@ import {
   Textarea,
   CheckboxGroup,
   useToast,
+  Spinner,
+  Center,
 } from '@chakra-ui/react'
 import NextLink from 'next/link'
 import { useEffect, useState } from 'react'
@@ -49,6 +51,8 @@ export default function CreateRequestPage() {
 
   const [created, setCreated] = useState(false)
 
+  const [loading, setLoading] = useState(true)
+
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
       if (!user) {
@@ -75,6 +79,8 @@ export default function CreateRequestPage() {
 
         const doctorsSnapshot = await getDocs(q)
         setDoctors(doctorsSnapshot.docs.map((doc) => doc.data()))
+
+        setLoading(false)
       }
 
       fetchDoctorsInArea()
@@ -96,6 +102,7 @@ export default function CreateRequestPage() {
         } catch (e) {
           console.log(e)
         }
+        setLoading(false)
         toast({
           title: 'Request created successfully.',
           status: 'success',
@@ -150,6 +157,8 @@ export default function CreateRequestPage() {
   }
 
   const createRequest = async () => {
+    setLoading(true)
+
     await addDoc(collection(db, 'requests'), {
       title: formState.title,
       message: formState.message,
@@ -159,9 +168,18 @@ export default function CreateRequestPage() {
       acceptingDoctorResponse: null,
       fulfilled: false,
       dateCreated: new Date(),
+      reviewed: false,
     })
 
     setCreated(true)
+  }
+
+  if (loading) {
+    return (
+      <Center marginTop={20}>
+        <Spinner size="xl" />
+      </Center>
+    )
   }
 
   return (

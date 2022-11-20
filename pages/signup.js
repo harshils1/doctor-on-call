@@ -106,8 +106,10 @@ const SignUp = () => {
 
       if (!credential.user) return
 
+      const objToStore = formState
+      delete objToStore['password']
       await setDoc(doc(db, 'users', credential.user.uid), {
-        ...formState,
+        ...objToStore,
         uid: credential.user.uid,
       })
 

@@ -6,6 +6,8 @@ import {
   Heading,
   Textarea,
   Button,
+  Center,
+  Spinner,
 } from '@chakra-ui/react'
 import { auth, db } from '../../firebase-client/config'
 import { onAuthStateChanged } from 'firebase/auth'
@@ -35,7 +37,9 @@ export default function ViewRequestPage() {
 
   const [response, setResponse] = useState('')
 
-  const [acceptingDoctor, setAcceptingDoctor] = useState(null)
+  const [acceptingDoctor, setAcceptingDoctor] = useState(null);
+
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
@@ -54,6 +58,8 @@ export default function ViewRequestPage() {
     if (!router.query.req_id || request) return
 
     const fetchData = async () => {
+      setLoading(true)
+
       const reqSnapshot = await getDoc(doc(db, 'requests', router.query.req_id))
       const fetchedRequest = reqSnapshot.data()
       setRequest(fetchedRequest)
@@ -70,8 +76,9 @@ export default function ViewRequestPage() {
         )
         const fetchedAcceptingDoctor = accDocSnapshot.data()
         setAcceptingDoctor(fetchedAcceptingDoctor)
-        console.log(fetchedAcceptingDoctor)
       }
+
+      setLoading(false)
     }
 
     fetchData()
@@ -81,10 +88,14 @@ export default function ViewRequestPage() {
     const reqSnapshot = await getDoc(doc(db, 'requests', router.query.req_id))
     const fetchedRequest = reqSnapshot.data()
     setRequest(fetchedRequest)
+
+    setLoading(false)
   }
 
   const handleAccept = async () => {
     try {
+      setLoading(true)
+
       await setDoc(doc(db, 'requests', router.query.req_id), {
         ...request,
         acceptingDoctorUid: user.uid,
@@ -107,9 +118,11 @@ export default function ViewRequestPage() {
   }
 
   const fulfillRequest = async () => {
+    setLoading(true)
+
     await setDoc(doc(db, 'requests', router.query.req_id), {
       ...request,
-      fulfilled: true
+      fulfilled: true,
     })
 
     refetchRequest()
@@ -155,7 +168,7 @@ export default function ViewRequestPage() {
       <>
         <p>This request was accepted by</p>
         <DoctorRow details={acceptingDoctor} />
-        <Button width={"100px"}>
+        <Button width={'100px'}>
           <NextLink href={`/requests/${router.query.req_id}/chat`}>
             Chat
           </NextLink>
@@ -180,7 +193,9 @@ export default function ViewRequestPage() {
         boxShadow={'md'}
         p={8}
         width={'full'}
-      ><p>This request has been fulfilled.</p></Box>
+      >
+        <p>This request has been fulfilled.</p>
+      </Box>
     ) : (
       <Box
         rounded={'lg'}
@@ -203,7 +218,15 @@ export default function ViewRequestPage() {
           Set this request as fulfilled.
         </Button>
       </Box>
-    );
+    )
+  }
+
+  if (loading) {
+    return (
+      <Center marginTop={20}>
+        <Spinner size="xl" />
+      </Center>
+    )
   }
 
   return (
@@ -268,7 +291,9 @@ export default function ViewRequestPage() {
             {user?.userType === 'Patient' && renderAcceptanceForPatient()}
           </Stack>
         </Box>
-        {user?.userType === "Patient" && request?.acceptingDoctorUid && renderFulfillment()}
+        {user?.userType === 'Patient' &&
+          request?.acceptingDoctorUid &&
+          renderFulfillment()}
       </Stack>
     </Flex>
   )
