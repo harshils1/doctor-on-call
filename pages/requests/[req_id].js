@@ -192,7 +192,7 @@ export default function ViewRequestPage() {
         bg={useColorModeValue('white', 'gray.700')}
         boxShadow={'md'}
         p={8}
-        width={{ base: 'full', md: '500px' }}
+        width={'full'}
       >
         <p>This request has been fulfilled.</p>
       </Box>
@@ -211,9 +211,9 @@ export default function ViewRequestPage() {
           _hover={{
             bg: 'blue.500',
           }}
-          width={'full'}
           height={'50px'}
           onClick={fulfillRequest}
+          width={{ base: 'full', md: '500px' }}
         >
           Set this request as fulfilled.
         </Button>
