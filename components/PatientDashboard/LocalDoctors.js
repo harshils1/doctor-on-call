@@ -31,6 +31,7 @@ const LocalDoctors = ({ user }) => {
       justify="center"
       py={10}
       px={8}
+      h={'fit-content'}
     >
       <Stack gap={10} direction={'column'}>
         <Text fontSize={25} fontWeight={600}>
