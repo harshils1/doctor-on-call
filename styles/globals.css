@@ -24,3 +24,8 @@ a {
     background: black;
   }
 }
+
+.firebase-emulator-warning {
+  opacity: 0;
+  pointer-events: none;
+}
