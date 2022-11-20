@@ -89,7 +89,7 @@ export default function CreateRequestPage() {
         duration: 3000,
         isClosable: true,
       })
-      router.push('/')
+      router.push('/dashboard')
     }
   }, [created])
 
