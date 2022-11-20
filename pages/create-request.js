@@ -188,7 +188,7 @@ export default function CreateRequestPage() {
                   Doctors available in {user?.city}, {user?.state},{' '}
                   {user?.country}
                 </FormLabel>
-                <Stack height={'300px'} overflowY={'auto    '}>
+                <Stack height={'300px'} overflowY={'auto'}>
                   {doctors?.map((doctor) => {
                     return (
                       <DoctorRow

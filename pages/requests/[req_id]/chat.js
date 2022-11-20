@@ -124,7 +124,8 @@ const Chat = () => {
         w="full"
         mb={'100px'}
         flexDir="column-reverse"
-        overflow={'scroll'}
+        overflowY={'scroll'}
+        overflowX={'hidden'}
         h={'calc(100vh - 180px)'}
       >
         {messages.map((message) => (

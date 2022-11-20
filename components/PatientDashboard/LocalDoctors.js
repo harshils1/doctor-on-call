@@ -47,7 +47,8 @@ const LocalDoctors = ({ user }) => {
             padding={4}
             rounded={'xl'}
             maxH={300}
-            overflow={'scroll'}
+            overflowY={'scroll'}
+            overflowX={'hidden'}
             direction={'column'}
           >
             {doctors.map((doctor) => (

@@ -55,7 +55,8 @@ const PendingRequests = ({ user }) => {
             padding={4}
             rounded={'xl'}
             maxH={300}
-            overflow={'scroll'}
+            overflowY={'scroll'}
+            overflowX={'hidden'}
             direction={'column'}
           >
             {pendingRequests.map((pendingRequest) => (
