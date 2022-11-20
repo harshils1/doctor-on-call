@@ -23,7 +23,7 @@ const Review = () => {
   const [reviews, setReviews] = useState([])
 
   useEffect(() => {
-    if (router.query.id) return
+    if (!router.query.id) return
 
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
       if (!user) {
@@ -45,7 +45,7 @@ const Review = () => {
   let finalAverage = null
 
   if (reviews.length) {
-    for (var i = 0; i < averageRating.length; i++) {
+    for (var i = 0; i < reviews.length; i++) {
       finalAverage += parseInt(reviews[i].stars)
     }
 
