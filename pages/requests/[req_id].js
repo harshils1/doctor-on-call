@@ -6,6 +6,8 @@ import {
   Heading,
   Textarea,
   Button,
+  Center,
+  Spinner,
 } from '@chakra-ui/react'
 import { auth, db } from '../../firebase-client/config'
 import { onAuthStateChanged } from 'firebase/auth'
