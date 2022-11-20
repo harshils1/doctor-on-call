@@ -24,7 +24,7 @@ export default function Home() {
           <p className="py-4 text-xl leading-normal text-gray-700 lg:text-xl xl:text-3xl">
               Your one-stop application to a better you!
           </p>
-          <p className="py-11 text-xs leading-normal text-gray-500 lg:text-xl xl:text-1xl">
+          <p className="py-12 text-xs leading-normal text-gray-500 lg:text-xl xl:text-1xl">
               Sign Up. Request a Doctor. Feel Better.
           </p>
         </div>
