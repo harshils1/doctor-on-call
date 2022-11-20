@@ -13,6 +13,8 @@ import {
   Stack,
   useColorModeValue,
   useToast,
+  Center,
+  Spinner,
 } from '@chakra-ui/react'
 
 const Account = () => {
@@ -67,6 +69,14 @@ const Account = () => {
       })
       setLoading(false)
     }
+  }
+
+  if (loading) {
+    return (
+      <Center marginTop={20}>
+        <Spinner size="xl" />
+      </Center>
+    )
   }
 
   return (
